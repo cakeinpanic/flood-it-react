@@ -1,0 +1,16 @@
+{
+  "name": "FloodIt",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MPL-2",
+  "devDependencies": {
+    "gulp": "3.8.10",
+    "gulp-react": "2.0.0",
+    "gulp-stylus": "^2.0.1",
+    "gulp-watch": "^4.1.0",
+    "stylus": "^0.50.0"
+  }
+}
