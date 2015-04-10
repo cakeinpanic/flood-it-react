@@ -1,26 +1,42 @@
 var Cell = React.createClass({
     displayName: 'Cell',
+    className: 'cell',
     color: 'red',
-    cellStyle: {},
+    style: {},
 
+    getInitialState: function(){
+        return {
+            style: {
+                background: this.props.color || 'red'
+            }
+        }
+    },
     changeColor: function(newColor) {
         this.color = newColor || 'red';
-        this.cellStyle.background = this.color;
+        this.style.background = this.color;
+        if (this.isMounted()) {
+            this.setState({
+                style: this.style
+            });
+        }
+
     },
     onClick: function() {
         this.changeColor('blue');
     },
 
+
     render: function() {
-        this.changeColor();
+
         return (
-           <div className="cell" style={this.cellStyle} onClick={this.onClick}></div>
+           <div className={this.className} style={this.state.style} onClick={this.onClick}></div>
             )
     }
 });
 
 var Table = React.createClass({
     displayName: 'table',
+    className: 'table',
     tilesNum: 10,
 
     render: function() {
@@ -29,7 +45,7 @@ var Table = React.createClass({
 
         return (
 
-            <div>
+            <div className={self.className}>
                  <Cell color='black' />
                  <Cell color='green' />
             </div>
