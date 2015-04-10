@@ -1,0 +1,19 @@
+.table {
+  display: block;
+  position: relative;
+  width: auto;
+}
+.row {
+  display: block;
+  margin: 0;
+  font-size: 0;
+}
+.cell {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  outline: 1px solid #fff;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
