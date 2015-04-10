@@ -41,13 +41,32 @@ var Table = React.createClass({
 
     render: function() {
         var self = this,
-            width = Math.sqrt(this.tilesNum);
+            rows = new Array(this.tilesNum);
+
+
+            for (var j=0; j < this.tilesNum; j++) {
+                var cells = [];
+                for (var i = 0; i < this.tilesNum; i++) {
+                    cells.push(React.createElement(Cell, {color: "black"}));
+                }
+                rows.push(cells)
+            }
+
 
         return (
 
             React.createElement("div", {className: self.className}, 
-                 React.createElement(Cell, {color: "black"}), 
-                 React.createElement(Cell, {color: "green"})
+            
+                rows.map(function(row) {
+                    return React.createElement("div", {className: "row"}, 
+                    
+                        row.map(function(cell){
+                            return cell;
+                        })
+                    
+                    )
+                })
+                
             )
 
             )

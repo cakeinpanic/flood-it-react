@@ -4,10 +4,17 @@ $cellSize = 30px;
 	position: relative;
 	width: auto;
 }
+.row {
+	display: block;
+	margin: 0;
+	font-size: 0;
+}
 .cell {
 	display: inline-block;
 	width: $cellSize;
 	height: @width;
+	outline: 1px solid white;
 	margin: 0;
 	padding:0;
+	cursor: pointer;
 }
