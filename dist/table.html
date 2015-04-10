@@ -9,11 +9,12 @@
 	<div id="wrapper"></div>
 
 	<script src="../bower_components/react/react.js"></script>
+    <script src="game.js"></script>
 
-	<script src="table.js"></script>
 
 	<script>
-		React.render(React.createElement(Table, {value: 10, step: 3}), document.getElementById('wrapper'));
+		React.render(React.createElement(Table, {dimension: 10}), document.getElementById('wrapper'));
+
 	</script>
 </body>
 </html>

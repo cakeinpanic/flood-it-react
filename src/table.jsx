@@ -1,55 +1,25 @@
-var Cell = React.createClass({
-    displayName: 'Cell',
-    className: 'cell',
-    color: 'red',
-    style: {},
-
-    getInitialState: function(){
-        return {
-            style: {
-                background: this.props.color || 'red'
-            }
-        }
-    },
-    changeColor: function(newColor) {
-        this.color = newColor || 'red';
-        this.style.background = this.color;
-        if (this.isMounted()) {
-            this.setState({
-                style: this.style
-            });
-        }
-
-    },
-    onClick: function() {
-        this.changeColor('blue');
-    },
-
-
-    render: function() {
-
-        return (
-           <div className={this.className} style={this.state.style} onClick={this.onClick}></div>
-            )
-    }
-});
 
 var Table = React.createClass({
     displayName: 'table',
     className: 'table',
-    tilesNum: 10,
-
+    dimension: 10,
+    rows : [],
+    componentDidMount: function() {
+        this.model = new TableModel(this.props.dimension);
+        this.model.setTableModel(this.rows);
+        console.log(this.model)
+    },
     render: function() {
         var self = this,
-            rows = new Array(this.tilesNum);
+            cellsNum = this.props.dimension,
+            scheme = new ColorScheme();
 
-
-            for (var j=0; j < this.tilesNum; j++) {
+            for (var j=0; j < cellsNum; j++) {
                 var cells = [];
-                for (var i = 0; i < this.tilesNum; i++) {
-                    cells.push(<Cell color='black' />);
+                for (var i = 0; i < cellsNum; i++) {
+                    cells.push(<Cell color={scheme.getRandomColor()} />);
                 }
-                rows.push(cells)
+                this.rows.push(cells)
             }
 
 
@@ -57,7 +27,7 @@ var Table = React.createClass({
 
             <div className={self.className}>
             {
-                rows.map(function(row) {
+                self.rows.map(function(row) {
                     return <div className='row'>
                     {
                         row.map(function(cell){
