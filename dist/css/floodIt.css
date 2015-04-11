@@ -10,7 +10,7 @@
   margin: 0;
   font-size: 0;
 }
-.table .row .cell {
+.table .row .tile {
   display: inline-block;
   width: 30px;
   height: 30px;

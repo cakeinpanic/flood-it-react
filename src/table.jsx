@@ -11,14 +11,14 @@ var Table = React.createClass({
     },
     render: function() {
         var self = this,
-            cellsNum = this.props.dimension;
+            tilesNum = this.props.dimension;
 
-            for (var j=0; j < cellsNum; j++) {
-                var cells = [];
-                for (var i = 0; i < cellsNum; i++) {
-                    cells.push(<Cell color={self.scheme.getRandomColor()} />);
+            for (var j=0; j < tilesNum; j++) {
+                var tiles = [];
+                for (var i = 0; i < tilesNum; i++) {
+                    tiles.push(<Tile color={self.scheme.getRandomColor()} />);
                 }
-                this.rows.push(cells)
+                this.rows.push(tiles)
             }
 
 
@@ -29,8 +29,8 @@ var Table = React.createClass({
                 self.rows.map(function(row) {
                     return <div className='row'>
                     {
-                        row.map(function(cell){
-                            return cell;
+                        row.map(function(tile){
+                            return tile;
                         })
                     }
                     </div>

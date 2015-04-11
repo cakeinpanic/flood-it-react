@@ -1,6 +1,6 @@
-var Cell = React.createClass({
-    displayName: 'Cell',
-    className: 'cell',
+var Tile = React.createClass({
+    displayName: 'Tile',
+    className: 'tile',
     color: 'red',
     model: '',
     style: {},

@@ -31,44 +31,6 @@ var TableModel = (function() {
         }
     }
 })();
-var Cell = React.createClass({
-    displayName: 'Cell',
-    className: 'cell',
-    color: 'red',
-    model: '',
-    style: {},
-
-    getInitialState: function(){
-        return {
-            style: {
-                background: this.props.color || 'red'
-            }
-        }
-    },
-    changeColor: function(newColor) {
-        this.color = newColor || 'red';
-        this.style.background = this.color;
-        if (this.isMounted()) {
-            this.setState({
-                style: this.style
-            });
-        }
-
-    },
-    onClick: function() {
-        this.changeColor('blue');
-    },
-
-
-    render: function() {
-
-        return (
-            React.createElement("div", {className: this.className, style: this.state.style, onClick: this.onClick})
-            )
-    }
-
-});
-
 var Game = React.createClass({
     displayName: 'Game',
     className: 'game',
@@ -137,14 +99,14 @@ var Table = React.createClass({
     },
     render: function() {
         var self = this,
-            cellsNum = this.props.dimension;
+            tilesNum = this.props.dimension;
 
-            for (var j=0; j < cellsNum; j++) {
-                var cells = [];
-                for (var i = 0; i < cellsNum; i++) {
-                    cells.push(React.createElement(Cell, {color: self.scheme.getRandomColor()}));
+            for (var j=0; j < tilesNum; j++) {
+                var tiles = [];
+                for (var i = 0; i < tilesNum; i++) {
+                    tiles.push(React.createElement(Tile, {color: self.scheme.getRandomColor()}));
                 }
-                this.rows.push(cells)
+                this.rows.push(tiles)
             }
 
 
@@ -155,8 +117,8 @@ var Table = React.createClass({
                 self.rows.map(function(row) {
                     return React.createElement("div", {className: "row"}, 
                     
-                        row.map(function(cell){
-                            return cell;
+                        row.map(function(tile){
+                            return tile;
                         })
                     
                     )
@@ -166,4 +128,41 @@ var Table = React.createClass({
 
             )
     }
+});
+var Tile = React.createClass({
+    displayName: 'Tile',
+    className: 'tile',
+    color: 'red',
+    model: '',
+    style: {},
+
+    getInitialState: function(){
+        return {
+            style: {
+                background: this.props.color || 'red'
+            }
+        }
+    },
+    changeColor: function(newColor) {
+        this.color = newColor || 'red';
+        this.style.background = this.color;
+        if (this.isMounted()) {
+            this.setState({
+                style: this.style
+            });
+        }
+
+    },
+    onClick: function() {
+        this.changeColor('blue');
+    },
+
+
+    render: function() {
+
+        return (
+            React.createElement("div", {className: this.className, style: this.state.style, onClick: this.onClick})
+            )
+    }
+
 });
