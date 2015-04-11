@@ -9,9 +9,11 @@ var ColorScheme = (function() {
     }
     return function ColorScheme() {
         this.currentSchemeId = 0;
-
+        this.getCurrentScheme = function(){
+            return currentScheme = scheme[this.currentSchemeId];
+        };
         this.getRandomColor = function() {
-            var currentScheme = scheme[this.currentSchemeId];
+            var currentScheme = this.getCurrentScheme();
 
             return currentScheme[getRandomInt(0,currentScheme.length-1)];
         }

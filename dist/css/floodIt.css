@@ -1,0 +1,31 @@
+.table {
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  width: auto;
+  margin: 20px;
+}
+.table .row {
+  display: block;
+  margin: 0;
+  font-size: 0;
+}
+.table .row .cell {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  outline: 1px solid #fff;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.panel .btn {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+.game {
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}

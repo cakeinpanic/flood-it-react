@@ -4,20 +4,19 @@ var Table = React.createClass({
     className: 'table',
     dimension: 10,
     rows : [],
+    scheme : new ColorScheme(),
     componentDidMount: function() {
         this.model = new TableModel(this.props.dimension);
         this.model.setTableModel(this.rows);
-        console.log(this.model)
     },
     render: function() {
         var self = this,
-            cellsNum = this.props.dimension,
-            scheme = new ColorScheme();
+            cellsNum = this.props.dimension;
 
             for (var j=0; j < cellsNum; j++) {
                 var cells = [];
                 for (var i = 0; i < cellsNum; i++) {
-                    cells.push(<Cell color={scheme.getRandomColor()} />);
+                    cells.push(<Cell color={self.scheme.getRandomColor()} />);
                 }
                 this.rows.push(cells)
             }
