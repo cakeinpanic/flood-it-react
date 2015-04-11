@@ -19,8 +19,8 @@ gulp.task('jsx', function() {
 
 	var react = require('gulp-react');
 
-	return gulp.src(['src/**/*.jsx','src/**/*.js'])
-        .pipe(concat('game.js'))
+	return gulp.src(['src/**/*.js','src/**/*.jsx'])
+        .pipe(concat('main.js'))
 		.pipe(react({
 			harmony: true
 		}))

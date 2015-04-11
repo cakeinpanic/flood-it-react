@@ -5,7 +5,6 @@ var TableModel = (function() {
 
         this.setTableModel = function(model) {
             this.tableModel = model;
-            console.log(model)
         }
     }
 })();

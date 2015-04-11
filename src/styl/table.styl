@@ -1,20 +1,24 @@
-$cellSize = 30px;
+$tileSize = 30px;
 .table {
-	display: block;
+	display: inline-block;
+	text-align: center;
 	position: relative;
 	width: auto;
-}
-.row {
-	display: block;
-	margin: 0;
-	font-size: 0;
-}
-.cell {
-	display: inline-block;
-	width: $cellSize;
-	height: @width;
-	outline: 1px solid white;
-	margin: 0;
-	padding:0;
-	cursor: pointer;
+	margin: 20px;
+	.row {
+		display: block;
+		margin: 0;
+		font-size: 0;
+		.tile {
+			display: inline-block;
+			width: $tileSize;
+			height: @width;
+			outline: 1px solid white;
+			margin: 0;
+			padding:0;
+			cursor: pointer;
+		}
+	}
+
+
 }
