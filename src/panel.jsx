@@ -9,19 +9,23 @@ var Panel = React.createClass({
             scheme: this.scheme.getCurrentScheme()
         }
     },
+    onClick: function(e) {
+      console.log(e.target.getAttribute('data-id'))
+    },
 
     render: function() {
-        var currentScheme = this.state.scheme;
-        console.log(currentScheme)
+        var currentScheme = this.state.scheme,
+            self = this;
+
         return (
             <div className={this.className} onClick={this.onClick}>
             {
-                currentScheme.map(function (color) {
+                currentScheme.map(function (color,index) {
                     var style = {
                         background: color
                     };
 
-                    return <div className="btn" style={style}></div>
+                    return <div className="btn" data-id={index} style={style} onClick={self.onClick}></div>
                 })
                 }</div>
             )
