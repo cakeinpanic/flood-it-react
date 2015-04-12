@@ -1,7 +1,7 @@
 
 var Table = React.createClass({
     displayName: 'table',
-    className: 'table',
+    className: 'table table-10',
     model : {},
     getInitialState: function(){
         this.model = new TableModel(this.props.dimension);

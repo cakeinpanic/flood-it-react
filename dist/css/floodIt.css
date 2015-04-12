@@ -3,7 +3,11 @@
   text-align: center;
   position: relative;
   width: auto;
-  margin: 20px;
+}
+.table:before {
+  content: "";
+  display: block;
+  margin-left: 100%;
 }
 .table .row {
   display: block;
@@ -12,20 +16,52 @@
 }
 .table .row .tile {
   display: inline-block;
-  width: 30px;
-  height: 30px;
-  outline: 1px solid #fff;
   margin: 0;
   padding: 0;
   cursor: pointer;
 }
+.table-10 {
+  height: 100%;
+  width: 100%;
+}
+.table-10 .row {
+  height: 10%;
+  width: 100%;
+}
+.table-10 .row .tile {
+  width: 10%;
+  height: 100%;
+}
+.panel {
+  width: 15%;
+  position: absolute;
+  right: -20%;
+  height: 100%;
+  top: 0;
+}
 .panel .btn {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
+  display: block;
+  width: 100%;
+  height: 15%;
+  margin-bottom: 20%;
+  border-radius: 50%;
+}
+.panel .btn:last-child {
+  margin: 0;
+}
+body {
+  background-color: #0f2124;
+}
+html,
+body,
+#wrapper {
+  width: 100%;
+  height: 100%;
 }
 .game {
-  width: 500px;
-  margin: 0 auto;
+  height: 70vh;
+  width: 70vh;
+  margin: 5vmin auto;
   text-align: center;
+  position: relative;
 }

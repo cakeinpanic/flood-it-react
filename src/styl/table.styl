@@ -1,24 +1,35 @@
-$tileSize = 30px;
+$tileSize10 = 10%;
 .table {
 	display: inline-block;
 	text-align: center;
 	position: relative;
 	width: auto;
-	margin: 20px;
+	&:before {
+		content: "";
+		display: block;
+		margin-left: 100%;
+	}
 	.row {
 		display: block;
 		margin: 0;
 		font-size: 0;
 		.tile {
 			display: inline-block;
-			width: $tileSize;
-			height: @width;
-			outline: 1px solid white;
 			margin: 0;
 			padding:0;
 			cursor: pointer;
 		}
 	}
-
-
+	&-10 {
+		height: 100%;
+		width: 100%;
+		.row {
+			height: 10%;
+			width: 100%;
+			.tile {
+				width: 10%;
+				height: 100%;
+			}
+		}
+	}
 }

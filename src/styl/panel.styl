@@ -1,7 +1,19 @@
+$width = 15%;
+$margin = (100% - $width * 5)*.8;
 .panel {
+	width: $width;
+	position: absolute;
+	right: -(@width + 5%);
+	height: 100%;
+	top: 0;
 	.btn {
-		display: inline-block;
-		width: 30px;
-		height:30px;
+		display: block;
+		width: 100%;
+		height: $width;
+		margin-bottom: (100% - $width * 5)*.8;
+		border-radius: 50%;
+		&:last-child {
+			margin: 0;
+		}
 	}
 }
