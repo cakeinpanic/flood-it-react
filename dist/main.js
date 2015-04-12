@@ -48,18 +48,17 @@ var TableModel = (function() {
 
             var tableMdl = this.tableModel,
                 startTile = this.tableModel[0][0],
-                doneTilesCount = 0;
+                doneTilesCount = 0,
+                totalTiles = this.dimension * this.dimension;
 
             this.steps++;
             this.currentColorId = newColorId;
-            processRelatives(tableMdl, startTile, newColorId);
+            processRelatives(tableMdl, startTile, this.currentColorId);
 
             this.tableModel.forEach(function(row) {
                 row.forEach(function(tile) {
-                    if (tile.willBeDone) {
-                        tile.willBeDone = false;
-                        tile.done = true;
-                    }
+                    tile.done = tile.willBeDone || tile.done;
+                    tile.willBeDone = false;
                     if (tile.done) {
                         tile.colorId = newColorId;
                         doneTilesCount++;
@@ -67,7 +66,7 @@ var TableModel = (function() {
                 });
 
             });
-            if (doneTilesCount === this.dimension * this.dimension) {
+            if (doneTilesCount === totalTiles) {
                 this.gameWon();
             }
             if (this.steps === this.maxSteps) {
@@ -119,10 +118,9 @@ var TableModel = (function() {
             result.push(getFromModel(tableModel, x - 1, y));
             result.push(getFromModel(tableModel, x, y - 1));
             result.push(getFromModel(tableModel, x, y + 1));
-            return result.filter(getRidOfNulls);
-        }
-        function getRidOfNulls(item) {
-            return !!item;
+            return result.filter(function(item){
+                return !!item
+            });
         }
         composeModel(this.dimension, this);
     }
@@ -208,7 +206,7 @@ var Panel = React.createClass({
 
 var Table = React.createClass({
     displayName: 'table',
-    className: 'table',
+    className: 'table table-10',
     model : {},
     getInitialState: function(){
         this.model = new TableModel(this.props.dimension);
