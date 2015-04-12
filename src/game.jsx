@@ -4,7 +4,6 @@ var Game = React.createClass({
     model: '',
     scheme : new ColorScheme(),
     setColor: function(colorId){
-        console.log(colorId);
            this.setState({
                colorId: colorId
            });
@@ -19,11 +18,10 @@ var Game = React.createClass({
         var self = this;
         return (
             <div className={this.className}>
-                <Table dimension='10' currentColor={this.state.colorId}/>
-                <Panel setColor = {self.setColor}/>
+                <Table dimension='10' currentColor={this.state.colorId} scheme={this.scheme}/>
+                <Panel setColor = {self.setColor}  scheme={this.scheme}/>
             </div>
             )
-
     }
 
 });

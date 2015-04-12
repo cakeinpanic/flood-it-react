@@ -9,19 +9,26 @@ var ColorScheme = (function() {
     }
     return function ColorScheme() {
         this.currentSchemeId = 0;
-        this.getCurrentScheme = function(){
-            return scheme[this.currentSchemeId];
-        };
-        this.getRandomColor = function() {
-            var currentScheme = this.getCurrentScheme();
+        this.currentScheme = getCurrentScheme();
 
-            return currentScheme[getRandomInt(0,currentScheme.length-1)];
-        };
-        this.getRandomColorId = function() {
+        this.getCurrentScheme = getCurrentScheme;
+        this.setCurrentScheme = setCurrentScheme;
+        this.getRandomColorId = getRandomColorId;
+        this.getColorById = getColorById;
+
+
+        function setCurrentScheme(schemeId){
+            this.currentSchemeId = schemeId;
+            this.currentScheme = this.getCurrentScheme();
+        }
+        function getCurrentScheme(){
+            return scheme[this.currentSchemeId];
+        }
+        function getRandomColorId() {
             var currentScheme = this.getCurrentScheme();
             return getRandomInt(0,currentScheme.length-1);
         };
-        this.getColorById = function(colorId) {
+        function getColorById(colorId) {
             var currentScheme = this.getCurrentScheme();
             return currentScheme[colorId];
         }

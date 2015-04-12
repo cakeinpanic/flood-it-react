@@ -9,19 +9,26 @@ var ColorScheme = (function() {
     }
     return function ColorScheme() {
         this.currentSchemeId = 0;
-        this.getCurrentScheme = function(){
-            return scheme[this.currentSchemeId];
-        };
-        this.getRandomColor = function() {
-            var currentScheme = this.getCurrentScheme();
+        this.currentScheme = getCurrentScheme();
 
-            return currentScheme[getRandomInt(0,currentScheme.length-1)];
-        };
-        this.getRandomColorId = function() {
+        this.getCurrentScheme = getCurrentScheme;
+        this.setCurrentScheme = setCurrentScheme;
+        this.getRandomColorId = getRandomColorId;
+        this.getColorById = getColorById;
+
+
+        function setCurrentScheme(schemeId){
+            this.currentSchemeId = schemeId;
+            this.currentScheme = this.getCurrentScheme();
+        }
+        function getCurrentScheme(){
+            return scheme[this.currentSchemeId];
+        }
+        function getRandomColorId() {
             var currentScheme = this.getCurrentScheme();
             return getRandomInt(0,currentScheme.length-1);
         };
-        this.getColorById = function(colorId) {
+        function getColorById(colorId) {
             var currentScheme = this.getCurrentScheme();
             return currentScheme[colorId];
         }
@@ -85,7 +92,6 @@ var TableModel = (function() {
             })
         }
 
-
         function composeModel(tilesNum, self) {
             for (var j=0; j < tilesNum; j++) {
                 var tiles = [];
@@ -134,7 +140,6 @@ var Game = React.createClass({
     model: '',
     scheme : new ColorScheme(),
     setColor: function(colorId){
-        console.log(colorId);
            this.setState({
                colorId: colorId
            });
@@ -149,11 +154,10 @@ var Game = React.createClass({
         var self = this;
         return (
             React.createElement("div", {className: this.className}, 
-                React.createElement(Table, {dimension: "10", currentColor: this.state.colorId}), 
-                React.createElement(Panel, {setColor: self.setColor})
+                React.createElement(Table, {dimension: "10", currentColor: this.state.colorId, scheme: this.scheme}), 
+                React.createElement(Panel, {setColor: self.setColor, scheme: this.scheme})
             )
             )
-
     }
 
 });
@@ -162,12 +166,9 @@ var Panel = React.createClass({
     displayName: 'Panel',
     className: 'panel',
     model: '',
-    scheme : new ColorScheme(),
 
     getInitialState: function(){
-        return {
-            scheme: this.scheme.getCurrentScheme()
-        }
+       return {}
     },
     setColor: function(e) {
       var colorId = e.target.getAttribute('data-id');
@@ -176,8 +177,9 @@ var Panel = React.createClass({
     },
 
     render: function() {
-        var currentScheme = this.state.scheme,
+        var currentScheme = this.props.scheme.getCurrentScheme(),
             self = this;
+
 
         return (
             React.createElement("div", {className: this.className, onClick: this.onClick}, 
@@ -200,7 +202,6 @@ var Table = React.createClass({
     displayName: 'table',
     className: 'table',
     model : {},
-    scheme : new ColorScheme(),
     currentColor: 0,
     getInitialState: function(){
         this.model = new TableModel(this.props.dimension);
@@ -212,6 +213,7 @@ var Table = React.createClass({
     render: function() {
         var self = this;
         this.currentColor = this.props.currentColor;
+        console.log(this.props)
         return (
 
             React.createElement("div", {className: self.className}, 
@@ -220,7 +222,7 @@ var Table = React.createClass({
                     return React.createElement("div", {className: "row"}, 
                     
                         row.map(function(tile){
-                            return React.createElement(Tile, {model: tile})
+                            return React.createElement(Tile, {model: tile, scheme: self.props.scheme})
                         })
                     
                     )
@@ -236,7 +238,6 @@ var Tile = React.createClass({
     className: 'tile',
     color: 'red',
     model: {},
-    colorScheme: new ColorScheme(),
     style: {},
     setColorById: function(colorId){
        return {
@@ -246,12 +247,12 @@ var Tile = React.createClass({
         }
     },
     componentWillReceiveProps: function(nextProps) {
-        this.setState(this.setColorById(nextProps.model.colorId))
-
+        this.colorScheme = nextProps.scheme;
+        this.setState(this.setColorById(nextProps.model.colorId));
     },
     getInitialState: function() {
         this.model = this.props.model;
-
+        this.colorScheme = this.props.scheme;
         return  this.setColorById(this.model.colorId)
 
     },
@@ -271,7 +272,6 @@ var Tile = React.createClass({
 
 
     render: function() {
-
         return (
             React.createElement("div", {className: this.className, style: this.state.style, onClick: this.onClick})
             )

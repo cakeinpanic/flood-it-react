@@ -2,12 +2,9 @@ var Panel = React.createClass({
     displayName: 'Panel',
     className: 'panel',
     model: '',
-    scheme : new ColorScheme(),
 
     getInitialState: function(){
-        return {
-            scheme: this.scheme.getCurrentScheme()
-        }
+       return {}
     },
     setColor: function(e) {
       var colorId = e.target.getAttribute('data-id');
@@ -16,8 +13,9 @@ var Panel = React.createClass({
     },
 
     render: function() {
-        var currentScheme = this.state.scheme,
+        var currentScheme = this.props.scheme.getCurrentScheme(),
             self = this;
+
 
         return (
             <div className={this.className} onClick={this.onClick}>

@@ -3,7 +3,6 @@ var Table = React.createClass({
     displayName: 'table',
     className: 'table',
     model : {},
-    scheme : new ColorScheme(),
     currentColor: 0,
     getInitialState: function(){
         this.model = new TableModel(this.props.dimension);
@@ -15,6 +14,7 @@ var Table = React.createClass({
     render: function() {
         var self = this;
         this.currentColor = this.props.currentColor;
+        console.log(this.props)
         return (
 
             <div className={self.className}>
@@ -23,7 +23,7 @@ var Table = React.createClass({
                     return <div className='row'>
                     {
                         row.map(function(tile){
-                            return <Tile model={tile}/>
+                            return <Tile model={tile} scheme={self.props.scheme}/>
                         })
                     }
                     </div>

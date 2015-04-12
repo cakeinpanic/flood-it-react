@@ -54,7 +54,6 @@ var TableModel = (function() {
             })
         }
 
-
         function composeModel(tilesNum, self) {
             for (var j=0; j < tilesNum; j++) {
                 var tiles = [];

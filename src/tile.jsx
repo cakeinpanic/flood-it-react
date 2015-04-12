@@ -3,7 +3,6 @@ var Tile = React.createClass({
     className: 'tile',
     color: 'red',
     model: {},
-    colorScheme: new ColorScheme(),
     style: {},
     setColorById: function(colorId){
        return {
@@ -13,12 +12,12 @@ var Tile = React.createClass({
         }
     },
     componentWillReceiveProps: function(nextProps) {
-        this.setState(this.setColorById(nextProps.model.colorId))
-
+        this.colorScheme = nextProps.scheme;
+        this.setState(this.setColorById(nextProps.model.colorId));
     },
     getInitialState: function() {
         this.model = this.props.model;
-
+        this.colorScheme = this.props.scheme;
         return  this.setColorById(this.model.colorId)
 
     },
@@ -38,7 +37,6 @@ var Tile = React.createClass({
 
 
     render: function() {
-
         return (
             <div className={this.className} style={this.state.style} onClick={this.onClick}></div>
             )
