@@ -44,14 +44,14 @@ var TableModel = (function() {
 
             this.tableModel.forEach(function(row) {
                 row.forEach(function(tile) {
-                        if (tile.willBeDone) {
-                            tile.willBeDone = false;
-                            tile.done = true;
-                        }
+                    if (tile.willBeDone) {
+                        tile.willBeDone = false;
+                        tile.done = true;
+                    }
                     if (tile.done) {
                         tile.colorId = newColorId;
                     }
-                    });
+                });
 
             });
 
@@ -63,7 +63,7 @@ var TableModel = (function() {
             var relatives = getRelatives(tableMdl, startTile);
             startTile.willBeDone = true;
             relatives.forEach(function (tile) {
-                if (!tile.willBeDone && tile.colorId === newColorId) {
+                if (!tile.willBeDone && (tile.done || tile.colorId === newColorId)) {
                     processRelatives(tableMdl, tile, newColorId);
                 }
             })
