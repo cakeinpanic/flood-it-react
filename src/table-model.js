@@ -3,12 +3,15 @@ var TableModel = (function() {
         this.dimension = dimension;
         this.colorScheme = new ColorScheme();
         this.tableModel = [];
+        this.steps = 0;
+        this.maxSteps = 20;
         this.setNewColor = function(newColorId){
 
             var tableMdl = this.tableModel,
-                startTile = this.tableModel[0][0];
+                startTile = this.tableModel[0][0],
+                doneTilesCount = 0;
 
-
+            this.steps++;
             processRelatives(tableMdl, startTile, newColorId);
 
             this.tableModel.forEach(function(row) {
@@ -19,13 +22,26 @@ var TableModel = (function() {
                     }
                     if (tile.done) {
                         tile.colorId = newColorId;
+                        doneTilesCount++;
                     }
                 });
 
             });
+            if (doneTilesCount === this.dimension * this.dimension) {
+                this.gameWon();
+            }
+            if (this.steps === this.maxSteps) {
+                this.gameLose();
+            }
+
 
         };
-
+        this.gameWon = function() {
+            console.log('Game won in ' + this.steps + ' steps');
+        };
+        this.gameLose = function() {
+            console.log('You exceeded the number of steps');
+        };
 
         function processRelatives(tableMdl, startTile, newColorId){
 
