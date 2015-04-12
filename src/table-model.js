@@ -12,6 +12,7 @@ var TableModel = (function() {
                 doneTilesCount = 0;
 
             this.steps++;
+            this.currentColorId = newColorId;
             processRelatives(tableMdl, startTile, newColorId);
 
             this.tableModel.forEach(function(row) {

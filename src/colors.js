@@ -20,6 +20,7 @@ var ColorScheme = (function() {
         function setCurrentScheme(schemeId){
             this.currentSchemeId = schemeId;
             this.currentScheme = this.getCurrentScheme();
+            return this.currentScheme;
         }
         function getCurrentScheme(){
             return scheme[this.currentSchemeId];

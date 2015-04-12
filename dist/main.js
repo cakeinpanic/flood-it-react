@@ -20,6 +20,7 @@ var ColorScheme = (function() {
         function setCurrentScheme(schemeId){
             this.currentSchemeId = schemeId;
             this.currentScheme = this.getCurrentScheme();
+            return this.currentScheme;
         }
         function getCurrentScheme(){
             return scheme[this.currentSchemeId];
@@ -50,6 +51,7 @@ var TableModel = (function() {
                 doneTilesCount = 0;
 
             this.steps++;
+            this.currentColorId = newColorId;
             processRelatives(tableMdl, startTile, newColorId);
 
             this.tableModel.forEach(function(row) {
@@ -146,16 +148,22 @@ var Game = React.createClass({
     },
     getInitialState: function() {
         return {
-            colorId: -1
+            colorId: -1,
+            currentScheme: this.scheme.getCurrentScheme()
         }
     },
-
+    changeScheme: function() {
+        this.setState( {
+            currentScheme: this.scheme.setCurrentScheme((this.scheme.currentSchemeId + 1)%4)
+        });
+    },
     render: function() {
         var self = this;
         return (
             React.createElement("div", {className: this.className}, 
-                React.createElement(Table, {dimension: "10", currentColor: this.state.colorId, scheme: this.scheme}), 
-                React.createElement(Panel, {setColor: self.setColor, scheme: this.scheme})
+                React.createElement(Table, {dimension: "10", currentColor: this.state.colorId, scheme: this.state.currentScheme}), 
+                React.createElement(Panel, {setColor: self.setColor, scheme: this.state.currentScheme}), 
+                React.createElement("button", {onClick: self.changeScheme}, "changeScheme")
             )
             )
     }
@@ -177,7 +185,7 @@ var Panel = React.createClass({
     },
 
     render: function() {
-        var currentScheme = this.props.scheme.getCurrentScheme(),
+        var currentScheme = this.props.scheme,
             self = this;
 
 
@@ -202,18 +210,21 @@ var Table = React.createClass({
     displayName: 'table',
     className: 'table',
     model : {},
-    currentColor: 0,
     getInitialState: function(){
         this.model = new TableModel(this.props.dimension);
         return {};
     },
+    componentDidMount: function(param){
+        this.currentColor = this.model.currentColorId;
+    },
     componentWillReceiveProps: function(nextProps) {
-       this.model.setNewColor(parseInt(nextProps.currentColor));
+        this.currentColor = nextProps.currentColor > -1 ? nextProps.currentColor : this.currentColor;
+
+       this.model.setNewColor(parseInt(this.currentColor));
     },
     render: function() {
         var self = this;
-        this.currentColor = this.props.currentColor;
-        console.log(this.props)
+        console.log(this.currentColor);
         return (
 
             React.createElement("div", {className: self.className}, 
@@ -242,12 +253,13 @@ var Tile = React.createClass({
     setColorById: function(colorId){
        return {
             style: {
-                background: this.colorScheme.getColorById(colorId)
+                background: this.colorScheme[colorId]
             }
         }
     },
     componentWillReceiveProps: function(nextProps) {
         this.colorScheme = nextProps.scheme;
+
         this.setState(this.setColorById(nextProps.model.colorId));
     },
     getInitialState: function() {

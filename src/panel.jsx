@@ -13,7 +13,7 @@ var Panel = React.createClass({
     },
 
     render: function() {
-        var currentScheme = this.props.scheme.getCurrentScheme(),
+        var currentScheme = this.props.scheme,
             self = this;
 
 

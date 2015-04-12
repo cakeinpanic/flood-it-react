@@ -7,12 +7,13 @@ var Tile = React.createClass({
     setColorById: function(colorId){
        return {
             style: {
-                background: this.colorScheme.getColorById(colorId)
+                background: this.colorScheme[colorId]
             }
         }
     },
     componentWillReceiveProps: function(nextProps) {
         this.colorScheme = nextProps.scheme;
+
         this.setState(this.setColorById(nextProps.model.colorId));
     },
     getInitialState: function() {

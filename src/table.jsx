@@ -3,18 +3,21 @@ var Table = React.createClass({
     displayName: 'table',
     className: 'table',
     model : {},
-    currentColor: 0,
     getInitialState: function(){
         this.model = new TableModel(this.props.dimension);
         return {};
     },
+    componentDidMount: function(param){
+        this.currentColor = this.model.currentColorId;
+    },
     componentWillReceiveProps: function(nextProps) {
-       this.model.setNewColor(parseInt(nextProps.currentColor));
+        this.currentColor = nextProps.currentColor > -1 ? nextProps.currentColor : this.currentColor;
+
+       this.model.setNewColor(parseInt(this.currentColor));
     },
     render: function() {
         var self = this;
-        this.currentColor = this.props.currentColor;
-        console.log(this.props)
+        console.log(this.currentColor);
         return (
 
             <div className={self.className}>
