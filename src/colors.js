@@ -10,12 +10,20 @@ var ColorScheme = (function() {
     return function ColorScheme() {
         this.currentSchemeId = 0;
         this.getCurrentScheme = function(){
-            return currentScheme = scheme[this.currentSchemeId];
+            return scheme[this.currentSchemeId];
         };
         this.getRandomColor = function() {
             var currentScheme = this.getCurrentScheme();
 
             return currentScheme[getRandomInt(0,currentScheme.length-1)];
+        };
+        this.getRandomColorId = function() {
+            var currentScheme = this.getCurrentScheme();
+            return getRandomInt(0,currentScheme.length-1);
+        };
+        this.getColorById = function(colorId) {
+            var currentScheme = this.getCurrentScheme();
+            return currentScheme[colorId];
         }
 
     }

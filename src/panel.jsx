@@ -9,8 +9,10 @@ var Panel = React.createClass({
             scheme: this.scheme.getCurrentScheme()
         }
     },
-    onClick: function(e) {
-      console.log(e.target.getAttribute('data-id'))
+    setColor: function(e) {
+      var colorId = e.target.getAttribute('data-id');
+
+      this.props.setColor(colorId)
     },
 
     render: function() {
@@ -25,7 +27,7 @@ var Panel = React.createClass({
                         background: color
                     };
 
-                    return <div className="btn" data-id={index} style={style} onClick={self.onClick}></div>
+                    return <div className="btn" data-id={index} style={style} onClick={self.setColor}></div>
                 })
                 }</div>
             )

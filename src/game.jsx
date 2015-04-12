@@ -3,14 +3,24 @@ var Game = React.createClass({
     className: 'game',
     model: '',
     scheme : new ColorScheme(),
-
+    setColor: function(colorId){
+        console.log(colorId);
+           this.setState({
+               colorId: colorId
+           });
+    },
+    getInitialState: function() {
+        return {
+            colorId: -1
+        }
+    },
 
     render: function() {
-
+        var self = this;
         return (
             <div className={this.className}>
-                <Table dimension='10' />
-                <Panel />
+                <Table dimension='10' currentColor={this.state.colorId}/>
+                <Panel setColor = {self.setColor}/>
             </div>
             )
 

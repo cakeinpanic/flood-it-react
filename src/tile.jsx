@@ -2,15 +2,25 @@ var Tile = React.createClass({
     displayName: 'Tile',
     className: 'tile',
     color: 'red',
-    model: '',
+    model: {},
+    colorScheme: new ColorScheme(),
     style: {},
-
-    getInitialState: function(){
-        return {
+    setColorById: function(colorId){
+       return {
             style: {
-                background: this.props.color || 'red'
+                background: this.colorScheme.getColorById(colorId)
             }
         }
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.setState(this.setColorById(nextProps.model.colorId))
+
+    },
+    getInitialState: function() {
+        this.model = this.props.model;
+
+        return  this.setColorById(this.model.colorId)
+
     },
     changeColor: function(newColor) {
         this.color = newColor || 'red';
