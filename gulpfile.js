@@ -1,7 +1,13 @@
 var gulp = require('gulp');
 var stylus = require('gulp-stylus');
 var concat = require('gulp-concat');
+var gCrashSound = require('gulp-crash-sound');
 
+
+gCrashSound.config({
+    file: './node_modules/gulp-crash-sound/sounds/sound.mp3',
+    duration: 0 // 3 seconds. can be null (or not set) to play full length which is the default
+});
 gulp.task('default', ['jsx', 'stylus'], function() {
 	gulp.watch('src/**/*.jsx', ['jsx']);
     gulp.watch('src/**/*.js', ['jsx']);
