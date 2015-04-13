@@ -72,9 +72,8 @@ var TableModel = (function() {
             if (this.steps === this.maxSteps) {
                 this.gameLose();
             }
-
-
         };
+
         this.gameWon = function() {
             console.log('Game won in ' + this.steps + ' steps');
         };
@@ -93,23 +92,25 @@ var TableModel = (function() {
             })
         }
 
-        function composeModel(tilesNum, self) {
-            for (var j=0; j < tilesNum; j++) {
+        function composeModel(tilesNum) {
+            for (var j = 0; j < tilesNum; j++) {
                 var tiles = [];
                 for (var i = 0; i < tilesNum; i++) {
-                    tiles.push(new TileModel(self.colorScheme.getRandomColorId(), j, i));
+                    tiles.push(new TileModel(this.colorScheme.getRandomColorId(), j, i));
                 }
-                self.tableModel.push(tiles);
+                this.tableModel.push(tiles);
             }
-            self.tableModel[0][0].done = true;
-            self.setNewColor( self.tableModel[0][0].colorId)
+			this.tableModel[0][0].done = true;
+			this.setNewColor( this.tableModel[0][0].colorId);
         }
+
         function getFromModel(model, x, y) {
             if (model[x]) {
                 return model[x][y] ? model[x][y] : null;
             }
             return null;
         }
+
         function getRelatives(tableModel, tile) {
             var result = [],
                 x = tile.x,
@@ -122,7 +123,7 @@ var TableModel = (function() {
                 return !!item
             });
         }
-        composeModel(this.dimension, this);
+	    composeModel.call(this, this.dimension);
     }
 })();
 var TileModel = (function() {
